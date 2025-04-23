@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from .schema import EventSchema, EventListSchema, EventCreateSchema, EventUpdateSchema
 import os
+from api.db.config import DATABASE_URL
 
 router = APIRouter()
 
@@ -17,7 +18,7 @@ def read_events() -> EventListSchema:
     
 @router.post("/")
 def create_events(payload:EventCreateSchema) -> EventSchema:
-    print(os.environ.get("DATABASE_URL"))
+    print(os.environ.get("DATABASE_URL"), DATABASE_URL)
     print(payload.page)
     data = payload.model_dump()
     return {"id": 123, **data}
